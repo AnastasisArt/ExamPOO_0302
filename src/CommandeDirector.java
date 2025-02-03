@@ -1,6 +1,10 @@
+import java.util.ArrayList;
+
 public class CommandeDirector {
     public Commande construireCommande(){
-        //---------------A FAIRE : Création d'un math random pour l'ID
-        return new Commande.CommandeBuilder(1234, "Commande enregistrée").build();
+        return new Commande.CommandeBuilder("Commande enregistrée")
+                .ajouterProduits(new ArrayList<Produit>())
+                .ajouterPrixTotal(0.0)
+                .build();
     }
 }

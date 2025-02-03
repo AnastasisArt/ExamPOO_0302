@@ -1,3 +1,3 @@
 public enum ECategorieProduit {
-
+    PEINTURE, PINCEAUX, PAPETERIE, OUTILS, ENCADREMENT
 }
