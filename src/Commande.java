@@ -8,7 +8,7 @@ public class Commande implements ISubject {
     private int id;
     private ArrayList<Produit> produits;
     private double prixTotal;
-    private String statut;
+    private EStatut statut;
 
     //Fonction de génération d'ID de commande
     public static int genererId(){
@@ -27,6 +27,7 @@ public class Commande implements ISubject {
         observers = new ArrayList<>();
         produits = new ArrayList<>();
         prixTotal = 0.0;
+        statut = EStatut.ENREGISTREE;
     }
 
     //METHODES POUR OBSERVER :
@@ -44,13 +45,14 @@ public class Commande implements ISubject {
         }
     }
 
-    public void setStatut(String statut){
+    public void setStatut(EStatut statut){
         this.statut = statut;
         notifierObserver();
     }
 
     //CONSTRUCTEUR BUILDER
     private Commande(CommandeBuilder builder){
+        this.observers = builder.observers;
         this.id = builder.id;
         this.produits = builder.produits;
         this.prixTotal = builder.prixTotal;
@@ -63,17 +65,18 @@ public class Commande implements ISubject {
         return "Commande ID : " + id + "\n" +
                 "Produits : " + produits + "\n" +
                 "Prix Total : " + prixTotal + "\n" +
-                "Statut : " + statut;
+                "Statut : " + statut.toString();
     }
 
     //BUILDER
     public static class CommandeBuilder{
+        private List<IObserver> observers = new ArrayList<>();
         private int id;
         private ArrayList<Produit> produits = new ArrayList<>();
         private double prixTotal = 0.0;
-        private String statut;
+        private EStatut statut;
 
-        public CommandeBuilder(String statut){
+        public CommandeBuilder(EStatut statut){
             this.id= genererId();
             this.statut = statut;
         }
@@ -99,7 +102,8 @@ public class Commande implements ISubject {
             return this;
         }
 
-        public Commande build(){
+        public Commande build(IObserver observer){
+            this.observers.add(observer);
             StringBuilder listeProduit = new StringBuilder();
             for(Produit produit : produits){
                 listeProduit.append(produit.getNom()).append(", ");

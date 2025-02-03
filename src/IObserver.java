@@ -1,3 +1,3 @@
 public interface IObserver {
-    void majCommande(String statut);
+    void majCommande(EStatut statut);
 }
