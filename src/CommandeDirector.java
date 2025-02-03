@@ -1,10 +1,9 @@
 import java.util.ArrayList;
 
 public class CommandeDirector {
-    public Commande construireCommande(){
+    public Commande construireCommande(ArrayList<Produit> produits){
         return new Commande.CommandeBuilder("Commande enregistrée")
-                .ajouterProduits(new ArrayList<Produit>())
-                .ajouterPrixTotal(0.0)
-                .build();
+            .ajouterProduits(produits)
+            .build();
     }
 }

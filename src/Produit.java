@@ -1,14 +1,14 @@
 public class Produit {
     private int id;
-    private int quantite;
+    private int stock;
     private String poids;
     private String nom;
-    private Double prix;
+    private double prix;
     private ECategorieProduit categorie;
 
-    public Produit(int id, int quantite, String poids, String nom, Double prix, ECategorieProduit categorie) {
+    public Produit(int id, int stock, String poids, String nom, double prix, ECategorieProduit categorie) {
         this.id = id;
-        this.quantite = 0;
+        this.stock = stock;
         this.poids = poids;
         this.nom = nom;
         this.prix = prix;
@@ -23,12 +23,12 @@ public class Produit {
         this.id = id;
     }
 
-    public int getQuantite() {
-        return quantite;
+    public int getStock() {
+        return stock;
     }
 
-    public void setQuantite(int quantite) {
-        this.quantite = quantite;
+    public void setStock(int stock) {
+        this.stock = stock;
     }
 
     public String getPoids() {
@@ -51,7 +51,7 @@ public class Produit {
         return prix;
     }
 
-    public void setPrix(Double prix) {
+    public void setPrix(double prix) {
         this.prix = prix;
     }
 
@@ -65,8 +65,8 @@ public class Produit {
 
     @Override
     public String toString() {
-        return "Produit : " + nom + "\n" +
-                "Quantite : " + poids + "\n" +
-                "Prix : " + prix;
+        return "\n" + nom + "\n" +
+                "Poids : " + poids + "\n" +
+                "Prix : " + prix + "\n";
     }
 }

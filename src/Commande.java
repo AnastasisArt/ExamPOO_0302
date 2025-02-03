@@ -23,11 +23,13 @@ public class Commande implements ISubject {
         return idGenere;
     }
 
-    //METHODES POUR OBSERVER :
     public Commande(){
         observers = new ArrayList<>();
+        produits = new ArrayList<>();
+        prixTotal = 0.0;
     }
 
+    //METHODES POUR OBSERVER :
     public void ajouterObserver(IObserver observer){
         observers.add(observer);
     }
@@ -77,18 +79,33 @@ public class Commande implements ISubject {
         }
 
         public CommandeBuilder ajouterProduits(ArrayList<Produit> produits){
-            this.produits = produits;
+            for(Produit produit : produits){
+                if(produit.getStock() > 0){
+                    this.produits.add(produit);
+                    produit.setStock(produit.getStock() - 1);
+                }else{
+                    System.out.println("Stock insuffisant de " + produit.getNom());
+                }
+            }
+            ajouterPrixTotal();
             return this;
         }
 
-        public CommandeBuilder ajouterPrixTotal(double prixTotal){
-            this.prixTotal = prixTotal;
+        public CommandeBuilder ajouterPrixTotal(){
+            this.prixTotal = 0.0;
+            for(Produit produit : produits){
+                this.prixTotal += produit.getPrix();
+            }
             return this;
         }
 
         public Commande build(){
-            System.out.println("Votre commande " + id + " contenant les produits suivants : " + produits + ", a bien été enregistrée.");
-                    return new Commande(this);
+            StringBuilder listeProduit = new StringBuilder();
+            for(Produit produit : produits){
+                listeProduit.append(produit.getNom()).append(", ");
+            }
+            System.out.println("Votre commande " + id + " contenant les produits suivants : " + listeProduit.toString() + "a bien été enregistrée.");
+            return new Commande(this);
         }
     }
 }
