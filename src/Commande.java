@@ -5,7 +5,7 @@ import java.util.Date;
 public class Commande {
     private int id;
     private ArrayList<Produit> produits;
-    private Double prixTotal;
+    private double prixTotal;
     private String statut;
 
     public static int genererId(){
@@ -38,7 +38,7 @@ public class Commande {
     public static class CommandeBuilder{
         private int id;
         private ArrayList<Produit> produits = new ArrayList<>();
-        private Double prixTotal = 0.0;
+        private double prixTotal = 0.0;
         private String statut;
 
         public CommandeBuilder(String statut){
@@ -51,7 +51,7 @@ public class Commande {
             return this;
         }
 
-        public CommandeBuilder ajouterPrixTotal(Double prixTotal){
+        public CommandeBuilder ajouterPrixTotal(double prixTotal){
             this.prixTotal = prixTotal;
             return this;
         }
