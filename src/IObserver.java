@@ -1,4 +1,3 @@
-package PACKAGE_NAME;
-
-public class IObserver {
+public interface IObserver {
+    void majCommande(String statut);
 }
