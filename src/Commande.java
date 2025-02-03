@@ -1,13 +1,16 @@
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
-public class Commande {
+public class Commande implements ISubject {
+    private List<IObserver> observers;
     private int id;
     private ArrayList<Produit> produits;
     private double prixTotal;
     private String statut;
 
+    //Fonction de génération d'ID de commande
     public static int genererId(){
         SimpleDateFormat format = new SimpleDateFormat("ddMMyy");
         String date = format.format(new Date());
@@ -20,6 +23,31 @@ public class Commande {
         return idGenere;
     }
 
+    //METHODES POUR OBSERVER :
+    public Commande(){
+        observers = new ArrayList<>();
+    }
+
+    public void ajouterObserver(IObserver observer){
+        observers.add(observer);
+    }
+
+    public void supprimerObserver(IObserver observer){
+        observers.remove(observer);
+    }
+
+    public void notifierObserver(){
+        for(IObserver observer : observers){
+            observer.majCommande(statut);
+        }
+    }
+
+    public void setStatut(String statut){
+        this.statut = statut;
+        notifierObserver();
+    }
+
+    //CONSTRUCTEUR BUILDER
     private Commande(CommandeBuilder builder){
         this.id = builder.id;
         this.produits = builder.produits;
@@ -27,6 +55,7 @@ public class Commande {
         this.statut = builder.statut;
     }
 
+    //toString() redéfini
     @Override
     public String toString() {
         return "Commande ID : " + id + "\n" +
@@ -35,6 +64,7 @@ public class Commande {
                 "Statut : " + statut;
     }
 
+    //BUILDER
     public static class CommandeBuilder{
         private int id;
         private ArrayList<Produit> produits = new ArrayList<>();
