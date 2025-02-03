@@ -1,4 +1,3 @@
-package PACKAGE_NAME;
-
-public class IMoyenPaiement {
+public interface IMoyenPaiement {
+    public void payer(double montant);
 }
