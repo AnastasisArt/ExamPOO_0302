@@ -41,7 +41,7 @@ public class Commande implements ISubject {
 
     public void notifierObserver(){
         for(IObserver observer : observers){
-            observer.majCommande(statut);
+            observer.majCommande(statut, id);
         }
     }
 

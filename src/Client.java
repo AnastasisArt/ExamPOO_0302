@@ -1,13 +1,12 @@
 public class Client implements IObserver {
-    private EStatut statut;
+    private Commande commande;
 
     @Override
-    public void majCommande(EStatut statut) {
-        this.statut = statut;
-        System.out.println("Statut de la commande : " + statut);
+    public void majCommande(EStatut statut, int id) {
+        System.out.println("Statut de la commande " + id + " : " + statut);
     }
 
-    public EStatut getStatutCommande() {
-        return this.statut;
+    public Commande getCommande() {
+        return commande;
     }
 }
