@@ -15,10 +15,11 @@ public class Main {
         IObserver client2 = new Client();
         Commande commande1 = director.construireCommande(produitsCmd1, client1, EMoyenPaiement.CB);
         Commande commande2 = director.construireCommande(produitsCmd2, client2, EMoyenPaiement.CRYPTOMONNAIE);
-        System.out.println(commande2);
+        System.out.println(commande1);
 
-        commande1.setStatut(EStatut.VALIDEE);
-        commande1.setStatut(EStatut.EXPEDIEE);
-
+        ChainMaster chaineValid = new ChainMaster();
+        chaineValid.traiterCommande(commande1);
+        chaineValid.traiterCommande(commande2);
+        
     }
 }

@@ -31,12 +31,24 @@ public class Commande implements ISubject {
         statut = EStatut.ENREGISTREE;
     }
 
+    public int getId() {
+        return id;
+    }
+
     public double getPrixTotal(){
         return prixTotal;
     }
 
     public EStatut getStatut(){
         return statut;
+    }
+
+    public List<Produit> getProduits() {
+        return produits;
+    }
+
+    public IMoyenPaiement getMoyenPaiement() {
+        return moyenPaiement;
     }
 
     //METHODES POUR OBSERVER :
