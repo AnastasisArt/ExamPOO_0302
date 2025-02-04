@@ -11,6 +11,8 @@ public class ChainEnvoiCommande implements IChaineValidation {
         System.out.println("La commande " + commande.getId() + " va être expediée.");
         commande.setStatut(EStatut.EXPEDIEE);
 
+        STransactionLogger.getInstance().log("La commande " + commande.getId() + " a été expédiée.");
+
         if (suite != null){
             suite.traitement(commande);
         }

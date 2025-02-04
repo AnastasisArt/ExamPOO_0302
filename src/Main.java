@@ -18,8 +18,10 @@ public class Main {
         System.out.println(commande1);
 
         ChainMaster chaineValid = new ChainMaster();
+        TransactionLogger logger = STransactionLogger.getInstance();
         chaineValid.traiterCommande(commande1);
         chaineValid.traiterCommande(commande2);
-        
+        logger.getHistorique();
+
     }
 }

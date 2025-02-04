@@ -13,10 +13,9 @@ public class ChainVerifPaiement implements IChaineValidation{
             return;
         }
 
-        System.out.println("\n");
+        System.out.println();
         commande.getMoyenPaiement().payer(commande.getPrixTotal());
         commande.setStatut(EStatut.VALIDEE);
-        System.out.println("\n");
         if (suite != null) {
             suite.traitement(commande);
         }

@@ -25,7 +25,8 @@ public class TransactionLogger {
         System.out.println(logFormate);
     }
 
-    public List<String> getHistorique() {
-        return this.historique;
+    public void getHistorique() {
+        System.out.println();
+        this.historique.forEach(System.out::println);
     }
 }
