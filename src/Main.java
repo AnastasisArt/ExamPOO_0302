@@ -13,15 +13,12 @@ public class Main {
         CommandeDirector director = new CommandeDirector();
         IObserver client1 = new Client();
         IObserver client2 = new Client();
-        Commande commande1 = director.construireCommande(produitsCmd1, client1);
-        Commande commande2 = director.construireCommande(produitsCmd2, client2);
+        Commande commande1 = director.construireCommande(produitsCmd1, client1, EMoyenPaiement.CB);
+        Commande commande2 = director.construireCommande(produitsCmd2, client2, EMoyenPaiement.CRYPTOMONNAIE);
+        System.out.println(commande2);
 
-        System.out.println(commande1.toString() + "\n");
         commande1.setStatut(EStatut.VALIDEE);
         commande1.setStatut(EStatut.EXPEDIEE);
-        commande1.setStatut(EStatut.LIVREE);
-        System.out.println("\n" + commande2.toString() + "\n");
-
 
     }
 }

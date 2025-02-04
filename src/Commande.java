@@ -9,6 +9,7 @@ public class Commande implements ISubject {
     private ArrayList<Produit> produits;
     private double prixTotal;
     private EStatut statut;
+    private IMoyenPaiement moyenPaiement;
 
     //Fonction de génération d'ID de commande
     public static int genererId(){
@@ -28,6 +29,14 @@ public class Commande implements ISubject {
         produits = new ArrayList<>();
         prixTotal = 0.0;
         statut = EStatut.ENREGISTREE;
+    }
+
+    public double getPrixTotal(){
+        return prixTotal;
+    }
+
+    public EStatut getStatut(){
+        return statut;
     }
 
     //METHODES POUR OBSERVER :
@@ -57,6 +66,7 @@ public class Commande implements ISubject {
         this.produits = builder.produits;
         this.prixTotal = builder.prixTotal;
         this.statut = builder.statut;
+        this.moyenPaiement = builder.moyenPaiement;
     }
 
     //toString() redéfini
@@ -65,7 +75,8 @@ public class Commande implements ISubject {
         return "Commande ID : " + id + "\n" +
                 "Produits : " + produits + "\n" +
                 "Prix Total : " + prixTotal + "\n" +
-                "Statut : " + statut.toString();
+                "Statut : " + Utils.statutToString(statut) + "\n" +
+                "Moyen de paiement : " + moyenPaiement;
     }
 
     //BUILDER
@@ -75,12 +86,15 @@ public class Commande implements ISubject {
         private ArrayList<Produit> produits = new ArrayList<>();
         private double prixTotal = 0.0;
         private EStatut statut;
+        private Client client;
+        private IMoyenPaiement moyenPaiement;
 
         public CommandeBuilder(EStatut statut){
             this.id= genererId();
             this.statut = statut;
         }
 
+        //Ajout produit avec vérif stock + appel à la fonction ajouterPrixTotal pour calculer le prix
         public CommandeBuilder ajouterProduits(ArrayList<Produit> produits){
             for(Produit produit : produits){
                 if(produit.getStock() > 0){
@@ -102,8 +116,22 @@ public class Commande implements ISubject {
             return this;
         }
 
+        public CommandeBuilder ajouterClient(Client client){
+            this.client = client;
+            return this;
+        }
+
+        public CommandeBuilder ajouterMoyenPaiement(EMoyenPaiement moyenPaiement){
+            this.moyenPaiement = FMoyenPaiement.choisirMoyenPaiement(moyenPaiement);
+            return this;
+        }
+
         public Commande build(IObserver observer){
             this.observers.add(observer);
+            if(this.client != null){
+                this.client.setCommande(new Commande(this));
+            }
+
             StringBuilder listeProduit = new StringBuilder();
             for(Produit produit : produits){
                 listeProduit.append(produit.getNom()).append(", ");
